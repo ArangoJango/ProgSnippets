@@ -1,0 +1,351 @@
+using System;
+using System.Collections.Generic;
+using System.Runtime;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace Kleines_Project_4
+
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            List<GameObject> GO = new List<GameObject>();
+            int round = 1;
+            int runde = 1;
+            int p1 = 0;
+            int p2 = 1;
+            int p3 = 2;
+            int p4 = 3;
+            bool special = true;
+            #region Name/Bot Decider
+            Console.WriteLine("Hallo! Bitte Anzahl der Spieler eintippen (1/2/4)? ");
+            int numPlayers = Convert.ToInt32(Console.ReadLine());
+
+            if (numPlayers < 0 || numPlayers > 4) Console.WriteLine("FAALSCH, Spiel kaputt");
+
+            Console.WriteLine("Gegen Menschen oder Bots? (1/2)");
+            int numbot = Convert.ToInt32(Console.ReadLine());
+
+            if (numbot == 1)
+            {
+                Console.WriteLine("Name Player 1: ");
+                string name1 = Console.ReadLine();
+                //Player player1 = new Player(name1);
+                GO.Add(new Player(name1));
+                //string name2;
+                //Player player2 = new Player();
+                if (numPlayers == 1)
+                {
+                    GO.Add(new Player("NPC"));
+                }
+                else if (numPlayers == 2)
+                {
+                    Console.WriteLine("Name Player 2: ");
+                    string name2 = Console.ReadLine();
+                    GO.Add(new Player(name2));
+                }
+                else if (numPlayers == 4)
+                {
+                    Console.WriteLine("Name Player 2: ");
+                    string name2 = Console.ReadLine();
+                    GO.Add(new Player(name2));
+                    Console.WriteLine("Name Player 3: ");
+                    string name3 = Console.ReadLine();
+                    GO.Add(new Player(name3));
+                    Console.WriteLine("Name Player 4: ");
+                    string name4 = Console.ReadLine();
+                    GO.Add(new Player(name4));
+                }               
+            }
+            else
+            {
+                Console.WriteLine("Name Player 1: ");
+                string name1 = Console.ReadLine();
+                GO.Add(new Player(name1));
+                if (numPlayers == 1)
+                {
+                    GO.Add(new Player("NPC"));
+                }
+                else if (numPlayers == 2)
+                {
+                    GO.Add(new Player("NPC"));
+                }
+                else
+                {
+                    GO.Add(new Player("NPC"));
+                    GO.Add(new Player("NPC2"));
+                    GO.Add(new Player("NPC3"));
+                }
+            }
+            #endregion
+            for (int i = 0; i <= 3; i++)
+            {
+                //GO[0].Update();
+                //GO[1].Update();
+
+                //for (int i = 0; i < GO.Count;i++ )
+                //{
+                //    GO[i].Update();
+                //}
+                if (numPlayers == 4)
+                {
+                    Console.WriteLine("\n------ Runde: " + round + " ------\n");
+                }
+                // foreach (Seite s in Aktenordner)
+                for (int j = 0; j <= 3; j++)
+                {
+                    if (numPlayers == 4)
+                    {
+                        Console.WriteLine("\n----------------------\n");
+                    }
+                    foreach (GameObject gameObject in GO)
+                    {
+                        gameObject.Update();
+                    }
+
+                    if (numPlayers == 4)
+                    {
+                        Console.WriteLine("\n----- Spieler: " + GO[p1].Name + " -----\n");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n------ Runde: " + runde + " ------\n");
+                        runde++;
+                    }
+
+                    if (numPlayers == 1)
+                    {
+                        Console.WriteLine(GO[0].Name + " hat ein " + ((Player)GO[0]).card.cardType.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[0].Name + " hat ein " + ((Player)GO[0]).card.cardType2.ToString() + " gezogen. ");
+                        Console.WriteLine(GO[1].Name + " hat ein " + ((Player)GO[1]).card.cardType.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[1].Name + " hat ein " + ((Player)GO[1]).card.cardType2.ToString() + " gezogen. ");
+                        int w2 = ((Player)GO[0]).card.Decide(((Player)GO[1]).card);
+                        if (w2 == 0) ((Player)GO[0]).won();
+                        else if (w2 == 1) ((Player)GO[1]).won();
+                        else Console.WriteLine("Unentschieden");
+                        Console.ReadLine();
+                    }
+                    else if (numPlayers == 2)
+                    {
+                        Console.WriteLine(GO[0].Name + " hat ein " + ((Player)GO[0]).card.cardType.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[0].Name + " hat ein " + ((Player)GO[0]).card.cardType2.ToString() + " gezogen. ");
+                        Console.WriteLine(GO[1].Name + " hat ein " + ((Player)GO[1]).card.cardType.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[1].Name + " hat ein " + ((Player)GO[1]).card.cardType2.ToString() + " gezogen. ");
+                        int w2 = ((Player)GO[0]).card.Decide(((Player)GO[1]).card);
+                        if (w2 == 0) ((Player)GO[0]).won();
+                        else if (w2 == 1) ((Player)GO[1]).won();
+                        else Console.WriteLine("Unentschieden");
+                        Console.ReadLine();
+                    }
+                    #region 4 Player-Mode
+                    else
+                    {
+                        //Console.WriteLine(GO[0].Name + " hat ein " + ((Player)GO[0]).card.cardType.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[0].Name + " hat ein " + ((Player)GO[0]).card.cardType2.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[1].Name + " hat ein " + ((Player)GO[1]).card.cardType.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[1].Name + " hat ein " + ((Player)GO[1]).card.cardType2.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[2].Name + " hat ein " + ((Player)GO[2]).card.cardType.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[2].Name + " hat ein " + ((Player)GO[2]).card.cardType2.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[3].Name + " hat ein " + ((Player)GO[3]).card.cardType.ToString() + " gezogen. ");
+                        //Console.WriteLine(GO[3].Name + " hat ein " + ((Player)GO[3]).card.cardType2.ToString() + " gezogen. ");
+                        Console.WriteLine("Du hast diese Karten: (1) " + ((Player)GO[p1]).card.cardType.ToString() + " und (2) " + ((Player)GO[p1]).card.cardType2.ToString() + "\nWelche Karte möchtest du spielen? (1/2)");
+                        int cardDecider = Convert.ToInt32(Console.ReadLine());
+                        #region SPECIAL
+                        if (round == 2 && special == true)
+                        {
+                            Console.WriteLine("Möchtest du dein Special nur JETZT einsetzen, ein Spieler deiner Wahl bekommt -2 Punkte! (dies geht nur ein mal) (1 = ja / 2 = nein)");
+                            int specialDecider = Convert.ToInt32(Console.ReadLine());
+                            if (specialDecider == 1)
+                            {
+                                Console.WriteLine("Gegen wen möchtest du dein Special einsetzen? " + GO[0].Name + " hat die Nummer 0 | " + GO[1].Name + " hat die Nummer 1 | " + GO[2].Name + " hat die Nummer 2 | " + GO[3].Name + " hat die Nummer 3.");
+                                int specialnum = Convert.ToInt32(Console.ReadLine());
+                                if (specialnum == 0)
+                                {
+                                    ((Player)GO[0]).Points -= 2;
+                                }
+                                else if (specialnum == 1)
+                                {
+                                    ((Player)GO[1]).Points -= 2;
+                                }
+                                else if (specialnum == 2)
+                                {
+                                    ((Player)GO[2]).Points -= 2;
+                                }
+                                else if (specialnum == 3)
+                                {
+                                    ((Player)GO[3]).Points -= 2;
+                                }
+                                ((Player)GO[0]).card.Special();
+                                special = false;                               
+                            }
+                        }
+                        else 
+                        {
+                            special = true;
+                        }
+                        #endregion
+                        #region CARDDECIDER
+                        Console.WriteLine("Gegen wen möchtest du deine Karte ausspielen?");
+                        Console.WriteLine(GO[p2].Name + " hat die Nummer 1 | " + GO[p3].Name + " hat die Nummer 2 | " + GO[p4].Name + " hat die Nummer 3.");
+                        int numcard = Convert.ToInt32(Console.ReadLine());           
+                        if (numcard == 1 && cardDecider == 1)
+                        {
+                            int w = ((Player)GO[p1]).card.Decide(((Player)GO[p2]).card);
+                            if (w == 0) ((Player)GO[p1]).won();
+                            else if (w == 1) ((Player)GO[p2]).won();
+                            else Console.WriteLine("Unentschieden");
+                            int w2 = ((Player)GO[p3]).card.Decide(((Player)GO[p4]).card);
+                            if (w2 == 0) ((Player)GO[p3]).won();
+                            else if (w2 == 1) ((Player)GO[p4]).won();
+                            else Console.WriteLine("Unentschieden");
+                        }
+                        else if (numcard == 1 && cardDecider == 2)
+                        {
+                            int w = ((Player)GO[p1]).card.Decide2(((Player)GO[p3]).card);
+                            if (w == 0) ((Player)GO[p1]).won();
+                            else if (w == 1) ((Player)GO[p3]).won();
+                            else Console.WriteLine("Unentschieden");
+                            int w2 = ((Player)GO[p2]).card.Decide2(((Player)GO[p4]).card);
+                            if (w2 == 0) ((Player)GO[p2]).won();
+                            else if (w2 == 1) ((Player)GO[p4]).won();
+                            else Console.WriteLine("Unentschieden");
+                        }
+                        else if (numcard == 2 && cardDecider == 1)
+                        {
+                            int w = ((Player)GO[p1]).card.Decide(((Player)GO[p3]).card);
+                            if (w == 0) ((Player)GO[p1]).won();
+                            else if (w == 1) ((Player)GO[p3]).won();
+                            else Console.WriteLine("Unentschieden");
+                            int w2 = ((Player)GO[p2]).card.Decide(((Player)GO[p4]).card);
+                            if (w2 == 0) ((Player)GO[p2]).won();
+                            else if (w2 == 1) ((Player)GO[p4]).won();
+                            else Console.WriteLine("Unentschieden");
+                        }
+                        else if (numcard == 2 && cardDecider == 2)
+                        {
+                            int w = ((Player)GO[p1]).card.Decide2(((Player)GO[p3]).card);
+                            if (w == 0) ((Player)GO[p1]).won();
+                            else if (w == 1) ((Player)GO[p3]).won();
+                            else Console.WriteLine("Unentschieden");
+                            int w2 = ((Player)GO[p2]).card.Decide2(((Player)GO[p4]).card);
+                            if (w2 == 0) ((Player)GO[p2]).won();
+                            else if (w2 == 1) ((Player)GO[p4]).won();
+                            else Console.WriteLine("Unentschieden");
+                        }
+                        else if (numcard == 3 && cardDecider == 1)
+                        {
+                            int w = ((Player)GO[p1]).card.Decide(((Player)GO[p4]).card);
+                            if (w == 0) ((Player)GO[p1]).won();
+                            else if (w == 1) ((Player)GO[p4]).won();
+                            else Console.WriteLine("Unentschieden");
+                            int w2 = ((Player)GO[p2]).card.Decide(((Player)GO[p3]).card);
+                            if (w2 == 0) ((Player)GO[p2]).won();
+                            else if (w2 == 1) ((Player)GO[p3]).won();
+                            else Console.WriteLine("Unentschieden");
+                        }
+                        else if (numcard == 3 && cardDecider == 2)
+                        {
+                            int w = ((Player)GO[p1]).card.Decide2(((Player)GO[p4]).card);
+                            if (w == 0) ((Player)GO[p1]).won();
+                            else if (w == 1) ((Player)GO[p4]).won();
+                            else Console.WriteLine("Unentschieden");
+                            int w2 = ((Player)GO[p2]).card.Decide2(((Player)GO[p3]).card);
+                            if (w2 == 0) ((Player)GO[p2]).won();
+                            else if (w2 == 1) ((Player)GO[p3]).won();
+                            else Console.WriteLine("Unentschieden");
+                        }
+                    }
+                    #endregion
+                        #region PLAYERSWITCH
+                    if (j == 0)
+                        {
+                           p1 = 1;
+                           p2 = 2;
+                           p3 = 3;
+                           p4 = 0;
+                        } 
+                        else if (j == 1)
+                        {
+                            p1 = 2;
+                            p2 = 3;
+                            p3 = 0;
+                            p4 = 1;
+                        }
+                        else if (j == 2)
+                        {
+                            p1 = 3;
+                            p2 = 0;
+                            p3 = 1;
+                            p4 = 2;
+                        }
+                        else if (j == 3)
+                        {
+                            p1 = 0;
+                            p2 = 1;
+                            p3 = 2;
+                            p4 = 3;
+                        }
+                    #endregion
+                    #endregion
+                        #region WIN Condition
+            if (round == 4)
+            {
+                if (numPlayers == 1 || numPlayers == 2)
+                {
+                    Console.WriteLine(GO[0].Name + " hat " + ((Player)GO[0]).Points);
+                    Console.WriteLine(GO[1].Name + " hat " + ((Player)GO[1]).Points);
+                    if (((Player)GO[0]).Points > ((Player)GO[1]).Points)
+                    {
+                        Console.WriteLine(GO[0].Name + " hat mit " + ((Player)GO[0]).Points + " Punkten gewonnen");
+                    }
+                    else
+                    {
+                        Console.WriteLine(GO[1].Name + " hat mit " + ((Player)GO[1]).Points + " Punkten gewonnen");
+                    }
+                    Console.WriteLine("ENDE");
+                }
+                else
+                {
+                    Console.WriteLine("\n"+GO[0].Name + " hat " + ((Player)GO[0]).Points + " Punkte.");
+                    Console.WriteLine(GO[1].Name + " hat " + ((Player)GO[1]).Points + " Punkte.");
+                    Console.WriteLine(GO[2].Name + " hat " + ((Player)GO[2]).Points + " Punkte.");
+                    Console.WriteLine(GO[3].Name + " hat " + ((Player)GO[3]).Points + " Punkte.\n");
+                    if ((((Player)GO[0]).Points) >= (((Player)GO[1]).Points) && (((Player)GO[0]).Points) >= (((Player)GO[2]).Points) && (((Player)GO[0]).Points) >= (((Player)GO[3]).Points))
+                    {
+                        Console.WriteLine(GO[0].Name + " hat mit " + ((Player)GO[0]).Points + " Punkten gewonnen");
+                    }
+                    else if ((((Player)GO[1]).Points) >= (((Player)GO[0]).Points) && (((Player)GO[1]).Points) >= (((Player)GO[2]).Points) && (((Player)GO[1]).Points) >= (((Player)GO[3]).Points))
+                    {
+                        Console.WriteLine(GO[1].Name + " hat mit " + ((Player)GO[1]).Points + " Punkten gewonnen");
+                    }
+                    else if ((((Player)GO[2]).Points) >= (((Player)GO[1]).Points) && (((Player)GO[2]).Points) >= (((Player)GO[0]).Points) && (((Player)GO[2]).Points) >= (((Player)GO[3]).Points))
+                    {
+                        Console.WriteLine(GO[0].Name + " hat mit " + ((Player)GO[2]).Points + " Punkten gewonnen");
+                    }
+                    else if ((((Player)GO[3]).Points) >= (((Player)GO[1]).Points) && (((Player)GO[3]).Points) >= (((Player)GO[2]).Points) && (((Player)GO[3]).Points) >= (((Player)GO[0]).Points))
+                    {
+                        Console.WriteLine(GO[3].Name + " hat mit " + ((Player)GO[3]).Points + " Punkten gewonnen");
+                    }
+                }
+                Console.WriteLine("ENDE");
+            }
+            #endregion
+                }
+                round++;
+                ConsoleKeyInfo k = Console.ReadKey();
+                if (k.Key == ConsoleKey.Escape)
+                {
+                    break;
+                }
+            }
+        }
+
+    }
+
+}
+
