@@ -1,0 +1,144 @@
+using System;
+
+namespace Klassenkampf
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                int input, input2;
+                int pw, pw2;
+                int lp, lp2 = 0;
+                int atk, atk2 = 0;
+                int runde = 1; 
+                int runde2 = 3;
+                int ult, ult2 = 0;
+                Console.WriteLine("Vorstellung der Charaktere: ");
+                Random randomizer = new Random();
+
+                Hades c1 = new Hades();
+                Zeus c2 = new Zeus();
+                Poseidon c3 = new Poseidon();
+
+                Console.WriteLine("Name: " + c1.name + " LP: " + c1.lp + " ATK: " + c1.atk + " DEF: " + c1.def);
+                Console.WriteLine("Name: " + c2.name + " LP: " + c2.lp + " ATK: " + c2.atk + " DEF: " + c2.def);
+                Console.WriteLine("Name: " + c3.name + " LP: " + c3.lp + " ATK: " + c3.atk + " DEF: " + c3.def);
+
+                Console.WriteLine("\nSpieler 1 wählt nun sein Charakter aus!\nTippe [1] für " + c1.name + " [2] für " + c2.name + " oder [3] für " + c3.name + "!");
+                input = Convert.ToInt32(Console.ReadLine());
+                if (input == 1)
+                {
+                    Console.WriteLine("Spieler 1 hat " + c1.name + " gewählt.");
+                    c1.ulti();
+                    lp = c1.lp;
+                    atk = c1.atk;
+                    ult = c1.ult;
+                }
+                else if (input == 2)
+                {
+                    Console.WriteLine("Spieler 1 hat " + c2.name + " gewählt.");
+                    c2.ulti();
+                    lp = c2.lp;
+                    atk = c2.atk;
+                    ult = c2.ult;
+                }
+                else
+                {
+                    Console.WriteLine("Spieler 1 hat " + c3.name + " gewählt.");
+                    c3.ulti();
+                    lp = c3.lp;
+                    atk = c3.atk;
+                    ult = c2.ult;
+                }
+                Console.WriteLine("\nSpieler 2 wählt nun sein Charakter aus!\nTippe [1] für " + c1.name + " [2] für " + c2.name + " oder [3] für " + c3.name + "!");
+                input = Convert.ToInt32(Console.ReadLine());
+                if (input == 1)
+                {
+                    Console.WriteLine("Spieler 2 hat " + c1.name + " gewählt.");
+                    c1.ulti();
+                    lp2 = c1.lp;
+                    atk2 = c1.atk;
+                    ult2 = c1.ult;
+                }
+                if (input == 2)
+                {
+                    Console.WriteLine("Spieler 2 hat " + c2.name + " gewählt.");
+                    c2.ulti();
+                    lp2 = c2.lp;
+                    atk2 = c2.atk;
+                    ult2 = c1.ult;
+                }
+                if (input == 3)
+                {
+                    Console.WriteLine("Spieler 2 hat " + c3.name + " gewählt.");
+                    c3.ulti();
+                    lp2 = c3.lp;
+                    atk2 = c3.atk;
+                    ult2 = c1.ult;
+                }
+                while (true)
+                {
+                    Console.WriteLine("\n---------------- Runde " + runde + " ----------------\nSpieler 1 kann [1] würfeln oder [2] beenden?");
+                    input = Convert.ToInt32(Console.ReadLine());
+                    pw = randomizer.Next(1, 7);
+                    Console.WriteLine("Spieler 2 kann [1] würfeln oder [2] beenden?");
+                    input2 = Convert.ToInt32(Console.ReadLine());
+                    pw2 = randomizer.Next(1, 7);
+                    if (input == 1 && input2 == 1)
+                    {                      
+                        Console.WriteLine("\nSpieler 1 hat eine " + pw + " gewürfelt!\nSpieler 2 hat eine " + pw2 + " gewürfelt!\n");
+                        if (pw < pw2)
+                        {
+                            lp -= atk2;
+                            Console.WriteLine("Spieler 2 greift Spieler 1 an!");
+                        }
+                        else if (pw > pw2)
+                        {
+                            lp2 -= atk;
+                            Console.WriteLine("Spieler 1 greift Spieler 2 an!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Gleiche Würfelzahl! Nichts passiert...");
+                        }
+                        Console.WriteLine("\nLP von Spieler 1 betragen: " + lp + "\nLP von Spieler 2 betragen: " + lp2);
+                        if (runde == runde2)
+                        {
+                            lp -= ult2;
+                            lp2 -= ult;
+                            Console.WriteLine("\nIhr habt eure ULT eingesetzt!\nLP von Spieler 1 betragen: " + lp + "\nLP von Spieler 2 betragen: " + lp2);
+                            runde2 *= 3;
+                        }
+                        runde++;
+                        if (lp <= 0)
+                        {
+                            Console.WriteLine("\nDie LP von Spieler 1 sind auf " + lp + " gefallen! Spieler 1 hat verloren!\n------- Spieler 2 GEWINNT! -------");
+                            break;
+                        }
+                        if (lp2 <= 0)
+                        {
+                            Console.WriteLine("\nDie LP von Spieler 2 sind auf " + lp2 + " gefallen! Spieler 2 hat verloren!\n------- Spieler 1 GEWINNT! -------");
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                Console.WriteLine("\nMöchtest ihr [1] neustarten oder [2] beenden?");
+                input = Convert.ToInt32(Console.ReadLine());
+                if (input == 1)
+                {
+
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+}
